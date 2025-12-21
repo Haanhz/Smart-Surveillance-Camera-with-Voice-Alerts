@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YOLO Detection Events</title>
+</head>
+<body>
+    <h1>YOLO Detection Events</h1>
+    <ul id="event-list"></ul>
+
+    <script>
+        async function fetchEvents() {
+            try {
+                const response = await fetch('/events');
+                const data = await response.json();
+                const ul = document.getElementById('event-list');
+                ul.innerHTML = '';
+                data.events.forEach(event => {
+                    const li = document.createElement('li');
+                    li.textContent = event;
+                    ul.appendChild(li);
+                });
+            } catch(err) {
+                console.error(err);
+            }
+        }
+
+        setInterval(fetchEvents, 1000); // cập nhật mỗi 1 giây
+        fetchEvents();
+    </script>
+</body>
+</html>
